@@ -42,6 +42,7 @@ namespace GridView
 
 		private void InitializeSudokuTable()
 		{
+			/*
 			var grid = new UniformGrid
 			{
 				Rows = Grid.NB_CELLS,
@@ -59,6 +60,7 @@ namespace GridView
 			}
 
 			SudokuTable.Child = grid;
+			*/
 		}
 
 		private static Border CreateBorder(int i, int j)
@@ -85,7 +87,7 @@ namespace GridView
 
 			var binding = new Binding
 			{
-				Source = ViewModel,
+				//Source = ViewModel,
 				Path = new PropertyPath($"[{i},{j}]"),
 				Mode = BindingMode.TwoWay
 			};
