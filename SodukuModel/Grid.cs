@@ -116,7 +116,7 @@ namespace SudokuModel
 		{
 			/* Check if the number has a value */
 
-			if (!number.HasValue) return false;
+			if (!number.HasValue) return true; // true because null is safe (empty)
 
 			/* Check if the value is in ]0, 9] */
 
