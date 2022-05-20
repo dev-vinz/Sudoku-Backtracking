@@ -80,8 +80,11 @@ namespace GridView
         {
 			var textBox = new TextBox
 			{
-				VerticalAlignment = VerticalAlignment.Center,
-				HorizontalAlignment = HorizontalAlignment.Center
+				VerticalAlignment = VerticalAlignment.Stretch,
+				HorizontalAlignment = HorizontalAlignment.Stretch,
+				TextAlignment = TextAlignment.Center,
+				VerticalContentAlignment = VerticalAlignment.Center,
+				FontSize = 30
 			};
 
 			var binding = new Binding
