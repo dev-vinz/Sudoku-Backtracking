@@ -16,12 +16,13 @@ namespace SudokuModel
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		private Cell[,] cells;
+		private bool solved;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                             PROPERTIES                            *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
+		public bool Solved => solved;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                            CONSTRUCTORS                           *|
@@ -30,13 +31,14 @@ namespace SudokuModel
 		public Grid()
 		{
 			cells = new Cell[NB_CELLS, NB_CELLS];
+			solved = false;
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                           PUBLIC METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		public bool Solve(Cell[][] cells)
+		public bool SolveSudoku(Cell[][] cells)
 		{
 			for (int x = 0; x < NB_CELLS; x++)
 			{
@@ -49,7 +51,7 @@ namespace SudokuModel
 							if (IsSafe(x, y, n))
 							{
 								this[x, y] = n;
-								if (Solve(cells)) return true;
+								if (SolveSudoku(cells)) return true;
 								else this[x, y] = null;
 							}
 						}
@@ -58,6 +60,11 @@ namespace SudokuModel
 				}
 			}
 			return true;
+		}
+
+		public void Solve()
+		{
+
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
