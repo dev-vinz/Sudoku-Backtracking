@@ -31,6 +31,7 @@ namespace SudokuModel
 		public Grid()
 		{
 			cells = new Cell[NB_CELLS, NB_CELLS];
+			populateGrid();
 			solved = false;
 		}
 
@@ -70,6 +71,17 @@ namespace SudokuModel
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                          PRIVATE METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		private void populateGrid()
+        {
+			for (int x = 0; x < NB_CELLS; x++)
+			{
+				for (int y = 0; y < NB_CELLS; y++)
+				{
+					cells[x, y] = new Cell();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Checks if the number we are trying to place is already present in row, column or box

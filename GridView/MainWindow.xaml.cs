@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -26,32 +27,31 @@ namespace GridView
 		private const int Thin = 1;
 		private const int Thick = 3;
 
-		public MainWindow()
-		{
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 			InitializeGridModel();
 			InitializeSudokuTable();
 		}
-
-		public Grid GridModel => (Grid)DataContext;
+		
+		public SudokuModel.Grid GridModel => (SudokuModel.Grid)DataContext;
 
 		private void InitializeGridModel()
 		{
-			DataContext = new Grid();
+			DataContext = new SudokuModel.Grid();
 		}
 
 		private void InitializeSudokuTable()
 		{
-			/*
 			var grid = new UniformGrid
 			{
-				Rows = Grid.NB_CELLS,
-				Columns = Grid.NB_CELLS
+				Rows = SudokuModel.Grid.NB_CELLS,
+				Columns = SudokuModel.Grid.NB_CELLS
 			};
 
-			for (var i = 0; i < Grid.NB_CELLS; i++)
+			for (var i = 0; i < SudokuModel.Grid.NB_CELLS; i++)
 			{
-				for (var j = 0; j < Grid.NB_CELLS; j++)
+				for (var j = 0; j < SudokuModel.Grid.NB_CELLS; j++)
 				{
 					var border = CreateBorder(i, j);
 					border.Child = CreateTextBox(i, j);
@@ -60,7 +60,6 @@ namespace GridView
 			}
 
 			SudokuTable.Child = grid;
-			*/
 		}
 
 		private static Border CreateBorder(int i, int j)
@@ -87,7 +86,7 @@ namespace GridView
 
 			var binding = new Binding
 			{
-				//Source = ViewModel,
+				Source = GridModel,
 				Path = new PropertyPath($"[{i},{j}]"),
 				Mode = BindingMode.TwoWay
 			};
