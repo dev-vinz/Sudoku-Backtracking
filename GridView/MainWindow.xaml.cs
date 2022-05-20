@@ -87,6 +87,8 @@ namespace GridView
 				FontSize = 30
 			};
 
+			textBox.TextChanged += textChangedEventHandler;
+
 			var binding = new Binding
 			{
 				Source = GridModel,
@@ -97,6 +99,11 @@ namespace GridView
 			textBox.SetBinding(TextBox.TextProperty, binding);
 
 			return textBox;
+		}
+
+		private void textChangedEventHandler(object sender, TextChangedEventArgs args)
+		{
+			
 		}
 	}
 }

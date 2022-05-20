@@ -90,8 +90,16 @@ namespace SudokuModel
 		/// <param name="col">The column</param>
 		/// <param name="number">The number we are trying to place</param>
 		/// <returns>If the grid is safe or not</returns>
-		private bool IsSafe(int row, int col, int number)
+		private bool IsSafe(int row, int col, int? number)
 		{
+			/* Check if the number has a value */
+
+			if (!number.HasValue) return false;
+
+			/* Check it the value is in ]0, 9] */
+
+			if (number < 1 || number > 9) return false;
+
 			/* Check rows and columns, if the value is already there */
 
 			for (int k = 0; k < NB_CELLS; k++)
@@ -143,7 +151,13 @@ namespace SudokuModel
 		public int? this[int row, int col]
 		{
 			get { return cells[row, col].Value; }
-			set { cells[row, col].Value = value; }
+			set 
+			{
+				if (IsSafe(row, col, value))
+				{
+					cells[row, col].Value = value;
+				}
+			}
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
