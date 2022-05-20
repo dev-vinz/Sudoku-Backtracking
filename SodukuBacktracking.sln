@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridView", "GridView\GridView.csproj", "{FEC624C8-55E2-4741-9AAE-8D328C99AD72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SodukuModel", "SodukuModel\SodukuModel.csproj", "{D115B7B6-0A75-4EC4-AC14-291989810717}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEC624C8-55E2-4741-9AAE-8D328C99AD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC624C8-55E2-4741-9AAE-8D328C99AD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC624C8-55E2-4741-9AAE-8D328C99AD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC624C8-55E2-4741-9AAE-8D328C99AD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D115B7B6-0A75-4EC4-AC14-291989810717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D115B7B6-0A75-4EC4-AC14-291989810717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D115B7B6-0A75-4EC4-AC14-291989810717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D115B7B6-0A75-4EC4-AC14-291989810717}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08F46356-F584-475A-BFFA-CCB6F9B93A66}
+	EndGlobalSection
+EndGlobal
