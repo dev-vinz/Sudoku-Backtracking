@@ -21,20 +21,43 @@ namespace GridView
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private const int InnerWidth = 3;
-		private const int OuterWidth = InnerWidth * InnerWidth;
+		private static readonly int INNER_WIDTH = 3;
+		private static readonly int OUTER_WIDTH = INNER_WIDTH * INNER_WIDTH;
 
-		private const int Thin = 1;
-		private const int Thick = 3;
+		private static readonly int THIN = 1;
+		private static readonly int THICK = 3;
 
-        public MainWindow()
-        {
-            InitializeComponent();
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                               FIELDS                              *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                             PROPERTIES                            *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		public SudokuModel.Grid GridModel => (SudokuModel.Grid)DataContext;
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                            CONSTRUCTORS                           *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		public MainWindow()
+		{
+			InitializeComponent();
 			InitializeGridModel();
 			InitializeSudokuTable();
 		}
-		
-		public SudokuModel.Grid GridModel => (SudokuModel.Grid)DataContext;
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                           PUBLIC METHODS                          *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                          PRIVATE METHODS                          *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		private void InitializeGridModel()
 		{
@@ -43,17 +66,17 @@ namespace GridView
 
 		private void InitializeSudokuTable()
 		{
-			var grid = new UniformGrid
+			UniformGrid? grid = new UniformGrid
 			{
 				Rows = SudokuModel.Grid.NB_CELLS,
 				Columns = SudokuModel.Grid.NB_CELLS
 			};
 
-			for (var i = 0; i < SudokuModel.Grid.NB_CELLS; i++)
+			for (int i = 0; i < SudokuModel.Grid.NB_CELLS; i++)
 			{
-				for (var j = 0; j < SudokuModel.Grid.NB_CELLS; j++)
+				for (int j = 0; j < SudokuModel.Grid.NB_CELLS; j++)
 				{
-					var border = CreateBorder(i, j);
+					Border border = CreateBorder(i, j);
 					border.Child = CreateTextBox(i, j);
 					grid.Children.Add(border);
 				}
@@ -64,10 +87,10 @@ namespace GridView
 
 		private static Border CreateBorder(int i, int j)
 		{
-			var left = j % InnerWidth == 0 ? Thick : Thin;
-			var top = i % InnerWidth == 0 ? Thick : Thin;
-			var right = j == OuterWidth - 1 ? Thick : 0;
-			var bottom = i == OuterWidth - 1 ? Thick : 0;
+			int left = j % INNER_WIDTH == 0 ? THICK : THIN;
+			int top = i % INNER_WIDTH == 0 ? THICK : THIN;
+			int right = j == OUTER_WIDTH - 1 ? THICK : 0;
+			int bottom = i == OUTER_WIDTH - 1 ? THICK : 0;
 
 			return new Border
 			{
@@ -77,8 +100,8 @@ namespace GridView
 		}
 
 		private TextBox CreateTextBox(int i, int j)
-        {
-			var textBox = new TextBox
+		{
+			TextBox textBox = new TextBox
 			{
 				VerticalAlignment = VerticalAlignment.Stretch,
 				HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -87,9 +110,9 @@ namespace GridView
 				FontSize = 30
 			};
 
-			textBox.TextChanged += textChangedEventHandler;
+			textBox.TextChanged += TextChangedEventHandler;
 
-			var binding = new Binding
+			Binding binding = new Binding
 			{
 				Source = GridModel,
 				Path = new PropertyPath($"[{i},{j}]"),
@@ -101,9 +124,36 @@ namespace GridView
 			return textBox;
 		}
 
-		private void textChangedEventHandler(object sender, TextChangedEventArgs args)
+		private void TextChangedEventHandler(object sender, TextChangedEventArgs args)
 		{
-			
 		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                         PROTECTED METHODS                         *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                          STATIC METHODS                           *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                         ABSTRACT METHODS                          *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                              INDEXERS                             *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		|*                         OPERATORS OVERLOAD                        *|
+		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	}
 }

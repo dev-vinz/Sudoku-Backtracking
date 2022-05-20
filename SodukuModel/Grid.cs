@@ -34,7 +34,6 @@ namespace SudokuModel
 			solved = false;
 
 			PopulateGrid();
-
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -149,6 +148,9 @@ namespace SudokuModel
 			return true;
 		}
 
+		/// <summary>
+		/// Fill the grid with empty cells
+		/// </summary>
 		private void PopulateGrid()
 		{
 			for (int x = 0; x < NB_CELLS; x++)

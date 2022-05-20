@@ -35,7 +35,7 @@ namespace SudokuModel
 
 		public Cell()
         {
-			this.value = null;
+			value = null;
         }
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
