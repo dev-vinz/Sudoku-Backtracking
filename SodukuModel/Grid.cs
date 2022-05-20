@@ -31,8 +31,10 @@ namespace SudokuModel
 		public Grid()
 		{
 			cells = new Cell[NB_CELLS, NB_CELLS];
-			populateGrid();
 			solved = false;
+
+			PopulateGrid();
+
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -104,17 +106,6 @@ namespace SudokuModel
 		|*                          PRIVATE METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		private void populateGrid()
-        {
-			for (int x = 0; x < NB_CELLS; x++)
-			{
-				for (int y = 0; y < NB_CELLS; y++)
-				{
-					cells[x, y] = new Cell();
-				}
-			}
-		}
-
 		/// <summary>
 		/// Checks if the number we are trying to place is already present in row, column or box
 		/// </summary>
@@ -128,7 +119,7 @@ namespace SudokuModel
 
 			if (!number.HasValue) return false;
 
-			/* Check it the value is in ]0, 9] */
+			/* Check if the value is in ]0, 9] */
 
 			if (number < 1 || number > 9) return false;
 
@@ -156,6 +147,17 @@ namespace SudokuModel
 			/* Otherwise, row, column and box is safe */
 
 			return true;
+		}
+
+		private void PopulateGrid()
+		{
+			for (int x = 0; x < NB_CELLS; x++)
+			{
+				for (int y = 0; y < NB_CELLS; y++)
+				{
+					cells[x, y] = new Cell();
+				}
+			}
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
