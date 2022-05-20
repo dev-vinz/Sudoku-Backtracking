@@ -22,7 +22,7 @@ namespace SudokuModel
 		|*                             PROPERTIES                            *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		public bool Solved => solved;
+		public bool IsSolved => solved;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                            CONSTRUCTORS                           *|
@@ -39,33 +39,65 @@ namespace SudokuModel
 		|*                           PUBLIC METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		public bool SolveSudoku(Cell[][] cells)
+		/// <summary>
+		/// Solve the sudoku using backtracking
+		/// </summary>
+		/// <returns>If the grid is solved</returns>
+		public void Solve()
 		{
-			for (int x = 0; x < NB_CELLS; x++)
+			int row = -1;
+			int col = -1;
+			bool emptyCellsLeft = false;
+
+			/* Check if we have empty cells */
+
+			for (int r = 0; r < NB_CELLS; r++)
 			{
-				for (int y = 0; y < NB_CELLS; y++)
+				for (int c = 0; c < NB_CELLS; c++)
 				{
-					if (this[x, y] == null)
+					if (this[r, c] == null)
 					{
-						for (int n = 1; n <= NB_CELLS; n++)
-						{
-							if (IsSafe(x, y, n))
-							{
-								this[x, y] = n;
-								if (SolveSudoku(cells)) return true;
-								else this[x, y] = null;
-							}
-						}
-						return false;
+						row = r;
+						col = c;
+
+						emptyCellsLeft = true;
+						break;
+					}
+				}
+
+				if (emptyCellsLeft) break;
+			}
+
+			/* No empty cells left */
+
+			if (!emptyCellsLeft)
+			{
+				solved = true;
+				return;
+			}
+
+			/* Backtracking algorithm */
+
+			for (int num = 1; num <= NB_CELLS; num++)
+			{
+				if (IsSafe(row, col, num))
+				{
+					this[row, col] = num;
+
+					Solve();
+
+					if (solved)
+					{
+						return;
+					}
+					else
+					{
+						this[row, col] = null;
 					}
 				}
 			}
-			return true;
-		}
 
-		public void Solve()
-		{
-
+			solved = false;
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -121,7 +153,7 @@ namespace SudokuModel
 				}
 			}
 
-			/* Otherwise, grid is safe */
+			/* Otherwise, row, column and box is safe */
 
 			return true;
 		}
