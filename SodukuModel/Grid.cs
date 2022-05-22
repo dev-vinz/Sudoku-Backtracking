@@ -189,6 +189,8 @@ namespace SudokuModel
 			get { return cells[row, col].Value; }
 			set 
 			{
+				cells[row, col].Value = null;
+
 				if (IsSafe(row, col, value))
 				{
 					cells[row, col].Value = value;

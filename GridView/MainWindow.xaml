@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:GridView"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="900">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="600"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
-        
-        <Border x:Name="SudokuTable" Height="600" Width="600" Margin="0,0,0,0"/>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="600"/>
+			<ColumnDefinition Width="300"/>
+		</Grid.ColumnDefinitions>
 
-        <Grid x:Name="Control" Grid.Column="2">
-            <Button x:Name="solveButton" Click="solveButton_Click" Margin="52,10,52,573">Solve</Button>
-        </Grid>
-    </Grid>
+		<Border x:Name="SudokuTable" Height="600" Width="600" Margin="0,0,0,0"/>
+
+		<Grid x:Name="Control" Grid.Column="2">
+			<Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
+		</Grid>
+	</Grid>
 </Window>

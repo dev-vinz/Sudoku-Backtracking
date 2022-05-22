@@ -130,7 +130,11 @@ namespace GridView
 
 		private void TextChangedEventHandler(object sender, TextChangedEventArgs args)
 		{
+			// TODO
+		}
 
+		private void SolveButton_Click(object sender, RoutedEventArgs e)
+		{
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -160,10 +164,5 @@ namespace GridView
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         OPERATORS OVERLOAD                        *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-        private void solveButton_Click(object sender, RoutedEventArgs e)
-        {
-			// TO DO
-        }
-    }
+	}
 }
