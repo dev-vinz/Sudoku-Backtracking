@@ -19,6 +19,7 @@ namespace SudokuModel
 
 		private Cell[,] cells;
 		private bool solved;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                             PROPERTIES                            *|
@@ -42,9 +43,19 @@ namespace SudokuModel
 		|*                           PUBLIC METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		public event PropertyChangedEventHandler? PropertyChanged;
-
 		public void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+		public void Clear()
+		{
+			for (int r = 0; r < NB_CELLS; r++)
+			{
+				for (int c = 0; c < NB_CELLS; c++)
+				{
+					this[r, c] = null;
+
+				}
+			}
+		}
 
 		public async Task SolveAsync()
         {
