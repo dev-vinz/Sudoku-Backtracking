@@ -135,9 +135,13 @@ namespace GridView
 			// TODO
 		}
 
+		private async void SolveAsyncButton_Click(object sender, RoutedEventArgs e)
+		{
+			await GridModel.SolveAsync();
+		}
+
 		private void SolveButton_Click(object sender, RoutedEventArgs e)
 		{
-			Trace.WriteLine("Solving...");
 			GridModel.Solve();
 		}
 

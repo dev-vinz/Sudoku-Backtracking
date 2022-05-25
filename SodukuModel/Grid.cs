@@ -46,6 +46,65 @@ namespace SudokuModel
 
 		public void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+		public async Task SolveAsync()
+        {
+			int row = -1;
+			int col = -1;
+			bool emptyCellsLeft = false;
+
+			/* Check if we have empty cells */
+
+			for (int r = 0; r < NB_CELLS; r++)
+			{
+				for (int c = 0; c < NB_CELLS; c++)
+				{
+					if (this[r, c] == null)
+					{
+						row = r;
+						col = c;
+
+						emptyCellsLeft = true;
+						break;
+					}
+				}
+
+				if (emptyCellsLeft) break;
+			}
+
+			/* No empty cells left */
+
+			if (!emptyCellsLeft)
+			{
+				solved = true;
+				return;
+			}
+
+			/* Backtracking algorithm */
+
+			for (int num = 1; num <= NB_CELLS; num++)
+			{
+				if (IsSafe(row, col, num))
+				{
+					this[row, col] = num;
+
+					await Task.Delay(10); // Input ?
+
+					await SolveAsync();
+
+					if (solved)
+					{
+						return;
+					}
+					else
+					{
+						this[row, col] = null;
+					}
+				}
+			}
+
+			solved = false;
+		}
+
 		/// <summary>
 		/// Solve the sudoku using backtracking
 		/// </summary>
@@ -80,7 +139,6 @@ namespace SudokuModel
 			if (!emptyCellsLeft)
 			{
 				solved = true;
-				Trace.WriteLine("Solved");
 				return;
 			}
 

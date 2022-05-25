@@ -16,6 +16,7 @@
 
 		<Grid x:Name="Control" Grid.Column="2">
 			<Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
+            <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,77,52,506">Solve Async</Button>
 		</Grid>
 	</Grid>
 </Window>
