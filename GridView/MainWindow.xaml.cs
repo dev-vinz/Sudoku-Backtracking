@@ -122,7 +122,6 @@ namespace GridView
 				Path = new PropertyPath($"[{i},{j}]"),
 				Mode = BindingMode.TwoWay,
 				Converter = sudokuBindingConverter,
-				UpdateSourceTrigger = UpdateSourceTrigger.LostFocus
 			};
 
 			textBox.SetBinding(TextBox.TextProperty, binding);
@@ -148,6 +147,12 @@ namespace GridView
         private void clearGridButton_Click(object sender, RoutedEventArgs e)
         {
 			GridModel.Clear();
+        }
+
+        private void generateRandomGridButton_Click(object sender, RoutedEventArgs e)
+        {
+			GridModel.Clear();
+			GridModel.GenerateRandom();
         }
 
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\

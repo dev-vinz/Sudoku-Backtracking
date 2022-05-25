@@ -57,6 +57,11 @@ namespace SudokuModel
 			}
 		}
 
+		public void GenerateRandom()
+        {
+			// TO DO
+        }
+
 		public async Task SolveAsync()
         {
 			int row = -1;

@@ -18,6 +18,7 @@
 			<Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
             <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,66,52,517">Solve Async</Button>
             <Button x:Name="clearGridButton" Click="clearGridButton_Click" Margin="52,122,52,461">Clear Grid</Button>
+            <Button x:Name="generateRandomGridButton" Click="generateRandomGridButton_Click" Margin="52,178,52,405">Generate random Grid</Button>
 		</Grid>
 	</Grid>
 </Window>
