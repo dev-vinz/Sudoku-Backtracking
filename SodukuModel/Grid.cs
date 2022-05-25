@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SudokuModel
 {
-	public class Grid
+	public class Grid : INotifyPropertyChanged
 	{
 		public static readonly int NB_CELLS = 9;
 		public static readonly int SQUARE_SIZE = 3;
@@ -39,6 +41,10 @@ namespace SudokuModel
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                           PUBLIC METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		public event PropertyChangedEventHandler? PropertyChanged;
+
+		public void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 		/// <summary>
 		/// Solve the sudoku using backtracking
@@ -74,6 +80,7 @@ namespace SudokuModel
 			if (!emptyCellsLeft)
 			{
 				solved = true;
+				Trace.WriteLine("Solved");
 				return;
 			}
 
@@ -195,6 +202,8 @@ namespace SudokuModel
 				{
 					cells[row, col].Value = value;
 				}
+
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
 			}
 		}
 

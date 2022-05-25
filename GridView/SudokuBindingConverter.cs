@@ -27,7 +27,7 @@ namespace GridView
 
 		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			String str = (String)value;
+			string str = (string)value;
 			if (str == "") return null;
 			else
 			{

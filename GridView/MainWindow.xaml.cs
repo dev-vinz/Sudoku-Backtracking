@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -120,7 +121,8 @@ namespace GridView
 				Source = GridModel,
 				Path = new PropertyPath($"[{i},{j}]"),
 				Mode = BindingMode.TwoWay,
-				Converter = sudokuBindingConverter
+				Converter = sudokuBindingConverter,
+				UpdateSourceTrigger = UpdateSourceTrigger.LostFocus
 			};
 
 			textBox.SetBinding(TextBox.TextProperty, binding);
@@ -135,6 +137,8 @@ namespace GridView
 
 		private void SolveButton_Click(object sender, RoutedEventArgs e)
 		{
+			Trace.WriteLine("Solving...");
+			GridModel.Solve();
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
