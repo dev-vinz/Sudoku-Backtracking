@@ -6,19 +6,22 @@
         xmlns:local="clr-namespace:GridView"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="900">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="600"/>
-			<ColumnDefinition Width="300"/>
-		</Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
 
-		<Border x:Name="SudokuTable" Height="600" Width="600" Margin="0,0,0,0"/>
+        <Border x:Name="SudokuTable" Height="600" Width="600" Margin="0,0,0,0"/>
 
-		<Grid x:Name="Control" Grid.Column="2">
-			<Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
+        <Grid x:Name="Control" Grid.Column="2">
+            <Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
             <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,66,52,517">Solve Async</Button>
             <Button x:Name="clearGridButton" Click="clearGridButton_Click" Margin="52,122,52,461">Clear Grid</Button>
-            <Button x:Name="generateRandomGridButton" Click="generateRandomGridButton_Click" Margin="52,178,52,405">Generate random Grid</Button>
-		</Grid>
-	</Grid>
+            <Button x:Name="generateRandomGridButton" Click="generateRandomGridButton_Click" Margin="52,225,52,358">
+                Generate 10 random numbers
+            </Button>
+            <Slider x:Name="randomNumCountSlider" TickFrequency="1" ValueChanged="randomNumCountSlider_ValueChanged" HorizontalAlignment="Center" Minimum="1" Value="10" Margin="0,202,0,0" VerticalAlignment="Top" Width="196"/>
+        </Grid>
+    </Grid>
 </Window>

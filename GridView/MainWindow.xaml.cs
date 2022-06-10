@@ -74,6 +74,8 @@ namespace GridView
 				Columns = SudokuModel.Grid.NB_CELLS
 			};
 
+			randomNumCountSlider.Maximum = (SudokuModel.Grid.NB_CELLS * SudokuModel.Grid.NB_CELLS) / 3;
+
 			for (int i = 0; i < SudokuModel.Grid.NB_CELLS; i++)
 			{
 				for (int j = 0; j < SudokuModel.Grid.NB_CELLS; j++)
@@ -152,7 +154,12 @@ namespace GridView
         private void generateRandomGridButton_Click(object sender, RoutedEventArgs e)
         {
 			GridModel.Clear();
-			GridModel.GenerateRandom();
+			GridModel.GenerateRandom(Convert.ToInt32(randomNumCountSlider.Value.ToString("#")));
+        }
+
+        private void randomNumCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+			generateRandomGridButton.Content = "Generate " + randomNumCountSlider.Value.ToString("#") + " random numbers";
         }
 
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\

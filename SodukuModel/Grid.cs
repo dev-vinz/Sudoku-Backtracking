@@ -57,10 +57,34 @@ namespace SudokuModel
 			}
 		}
 
-		public void GenerateRandom()
+		public void GenerateRandom(int maxGeneratedNum = 10)
         {
-			// TO DO
-        }
+			if (maxGeneratedNum >= NB_CELLS * NB_CELLS) return;
+			
+			Random rnd = new Random();
+
+			int r, c;
+
+			for(int i = 0; i < maxGeneratedNum; i++)
+			{
+				/* Found an empty cell */
+
+				do
+				{
+					r = rnd.Next(0, NB_CELLS);
+					c = rnd.Next(0, NB_CELLS);
+
+				} while (this[r, c] != null);
+
+				/* Found a valid number for this cell */
+
+				do
+				{
+					this[r, c] = rnd.Next(1, NB_CELLS + 1);
+
+				} while (this[r, c] == null);
+			}
+		}
 
 		public async Task SolveAsync()
         {
