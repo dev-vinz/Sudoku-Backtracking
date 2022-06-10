@@ -144,17 +144,25 @@ namespace GridView
 			cts = new CancellationTokenSource();
 
 			stopSolveAsyncButtony.IsEnabled = true;
+			solveButton.IsEnabled = false;
 			solveAsyncButton.IsEnabled = false;
 			generateRandomGridButton.IsEnabled = false;
 			clearGridButton.IsEnabled = false;
 
 			await GridModel.SolveAsync(cts);
+
+			stopSolveAsyncButtony.IsEnabled = false;
+			solveButton.IsEnabled = true;
+			solveAsyncButton.IsEnabled = true;
+			generateRandomGridButton.IsEnabled = true;
+			clearGridButton.IsEnabled = true;
 		}
 
 		private void stopSolveAsyncButtony_Click(object sender, RoutedEventArgs e)
 		{
 			cts.Cancel();
 			stopSolveAsyncButtony.IsEnabled = false;
+			solveButton.IsEnabled = true;
 			solveAsyncButton.IsEnabled = true;
 			generateRandomGridButton.IsEnabled = true;
 			clearGridButton.IsEnabled = true;
