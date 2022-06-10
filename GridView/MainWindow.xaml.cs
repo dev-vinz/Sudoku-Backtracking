@@ -30,7 +30,7 @@ namespace GridView
 		private static readonly int THIN = 1;
 		private static readonly int THICK = 3;
 
-		private CancellationTokenSource cts;
+		private CancellationTokenSource? cts;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                               FIELDS                              *|
@@ -160,7 +160,7 @@ namespace GridView
 
 		private void stopSolveAsyncButtony_Click(object sender, RoutedEventArgs e)
 		{
-			cts.Cancel();
+			cts?.Cancel();
 			stopSolveAsyncButtony.IsEnabled = false;
 			solveButton.IsEnabled = true;
 			solveAsyncButton.IsEnabled = true;

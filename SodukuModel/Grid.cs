@@ -161,7 +161,7 @@ namespace SudokuModel
 
 					await SolveAsync(token);
 
-					if (solved)
+					if (solved || token.IsCancellationRequested)
 					{
 						return;
 					}
