@@ -19,6 +19,7 @@ namespace SudokuModel
 
 		private Cell[,] cells;
 		private bool solved;
+		private Stopwatch chrono;
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -27,14 +28,28 @@ namespace SudokuModel
 
 		public bool IsSolved => solved;
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        public string ElapsedTime
+		{
+			get
+			{
+				TimeSpan ts = chrono.Elapsed;
+				return String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, 
+																	ts.Minutes, 
+																	ts.Seconds,
+																	ts.Milliseconds / 10);
+			}
+		}
+
+
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                            CONSTRUCTORS                           *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		public Grid()
+        public Grid()
 		{
 			cells = new Cell[NB_CELLS, NB_CELLS];
 			solved = false;
+			chrono = new Stopwatch();
 
 			PopulateGrid();
 		}
@@ -47,6 +62,7 @@ namespace SudokuModel
 
 		public void Clear()
 		{
+			chrono.Reset();
 			for (int r = 0; r < NB_CELLS; r++)
 			{
 				for (int c = 0; c < NB_CELLS; c++)
@@ -60,6 +76,8 @@ namespace SudokuModel
 		public void GenerateRandom(int maxGeneratedNum = 10)
         {
 			if (maxGeneratedNum >= NB_CELLS * NB_CELLS) return;
+
+			Clear();
 			
 			Random rnd = new Random();
 
@@ -88,6 +106,8 @@ namespace SudokuModel
 
 		public async Task SolveAsync()
         {
+			if (!chrono.IsRunning) chrono.Start();
+
 			int row = -1;
 			int col = -1;
 			bool emptyCellsLeft = false;
@@ -116,6 +136,7 @@ namespace SudokuModel
 			if (!emptyCellsLeft)
 			{
 				solved = true;
+				chrono.Stop();
 				return;
 			}
 
@@ -126,6 +147,8 @@ namespace SudokuModel
 				if (IsSafe(row, col, num))
 				{
 					this[row, col] = num;
+
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ElapsedTime"));
 
 					await Task.Delay(10); // Input ?
 
@@ -151,6 +174,8 @@ namespace SudokuModel
 		/// <returns>If the grid is solved</returns>
 		public void Solve()
 		{
+			if (!chrono.IsRunning) chrono.Start();
+
 			int row = -1;
 			int col = -1;
 			bool emptyCellsLeft = false;
@@ -179,6 +204,8 @@ namespace SudokuModel
 			if (!emptyCellsLeft)
 			{
 				solved = true;
+				chrono.Stop();
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ElapsedTime"));
 				return;
 			}
 
@@ -291,7 +318,7 @@ namespace SudokuModel
 
 		public int? this[int row, int col]
 		{
-			get { return cells[row, col].Value; }
+			get => cells[row, col].Value;
 			set 
 			{
 				cells[row, col].Value = null;

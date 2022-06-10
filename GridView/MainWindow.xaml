@@ -22,6 +22,7 @@
                 Generate 10 random numbers
             </Button>
             <Slider x:Name="randomNumCountSlider" TickFrequency="1" ValueChanged="randomNumCountSlider_ValueChanged" HorizontalAlignment="Center" Minimum="1" Value="10" Margin="0,202,0,0" VerticalAlignment="Top" Width="196"/>
+            <Label x:Name="elapsedTimeLabel" FontSize="25" Content="{Binding ElapsedTime}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="196"/>
         </Grid>
     </Grid>
 </Window>
