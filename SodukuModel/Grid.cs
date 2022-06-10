@@ -21,6 +21,7 @@ namespace SudokuModel
 		private Cell[,] cells;
 		private bool solved;
 		private Stopwatch chrono;
+		private int sleepMs;
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -28,6 +29,12 @@ namespace SudokuModel
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		public bool IsSolved => solved;
+
+		public int SleepMs
+        {
+			get => sleepMs;
+			set => sleepMs = value;
+        }
 
         public string ElapsedTime
 		{
@@ -105,7 +112,7 @@ namespace SudokuModel
 			}
 		}
 
-		public async Task SolveAsync(CancellationTokenSource token, int sleepMs = 10)
+		public async Task SolveAsync(CancellationTokenSource token)
         {
 			if(token.IsCancellationRequested)
             {
@@ -157,7 +164,8 @@ namespace SudokuModel
 
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ElapsedTime"));
 
-					await Task.Delay(sleepMs); // Input ?
+					await Task.Delay(SleepMs); // Input ?
+					Console.WriteLine(SleepMs);
 
 					await SolveAsync(token);
 

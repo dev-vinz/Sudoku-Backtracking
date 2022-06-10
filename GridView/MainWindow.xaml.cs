@@ -31,6 +31,7 @@ namespace GridView
 		private static readonly int THICK = 3;
 
 		private CancellationTokenSource? cts;
+		private Object? speed;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                               FIELDS                              *|
@@ -151,9 +152,7 @@ namespace GridView
 			generateRandomGridButton.IsEnabled = false;
 			clearGridButton.IsEnabled = false;
 
-			int speedFactor = (int)speedSlider.Value;
-
-			await GridModel.SolveAsync(cts, speedFactor);
+			await GridModel.SolveAsync(cts);
 
 			stopSolveAsyncButtony.IsEnabled = false;
 			solveAsyncButton.IsEnabled = true;
@@ -235,32 +234,37 @@ namespace GridView
 			}
 		}
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        private void speedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+			GridModel.SleepMs = (int)speedSlider.Value;
+        }
+
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         PROTECTED METHODS                         *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                          STATIC METHODS                           *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         ABSTRACT METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                              INDEXERS                             *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         OPERATORS OVERLOAD                        *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	}
+    }
 }
