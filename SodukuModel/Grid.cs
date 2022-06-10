@@ -105,7 +105,7 @@ namespace SudokuModel
 			}
 		}
 
-		public async Task SolveAsync(CancellationTokenSource token)
+		public async Task SolveAsync(CancellationTokenSource token, int sleepMs = 10)
         {
 			if(token.IsCancellationRequested)
             {
@@ -157,7 +157,7 @@ namespace SudokuModel
 
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ElapsedTime"));
 
-					await Task.Delay(10); // Input ?
+					await Task.Delay(sleepMs); // Input ?
 
 					await SolveAsync(token);
 

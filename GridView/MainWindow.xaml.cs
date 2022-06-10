@@ -114,7 +114,8 @@ namespace GridView
 				HorizontalAlignment = HorizontalAlignment.Stretch,
 				TextAlignment = TextAlignment.Center,
 				VerticalContentAlignment = VerticalAlignment.Center,
-				FontSize = 30
+				FontSize = 30,
+				Foreground = Brushes.Blue
 			};
 
 			textBox.TextChanged += TextChangedEventHandler;
@@ -141,18 +142,20 @@ namespace GridView
 
 		private async void SolveAsyncButton_Click(object sender, RoutedEventArgs e)
 		{
+			BlockAndChangeColorCells();
+
 			cts = new CancellationTokenSource();
 
 			stopSolveAsyncButtony.IsEnabled = true;
-			solveButton.IsEnabled = false;
 			solveAsyncButton.IsEnabled = false;
 			generateRandomGridButton.IsEnabled = false;
 			clearGridButton.IsEnabled = false;
 
-			await GridModel.SolveAsync(cts);
+			int speedFactor = (int)speedSlider.Value;
+
+			await GridModel.SolveAsync(cts, speedFactor);
 
 			stopSolveAsyncButtony.IsEnabled = false;
-			solveButton.IsEnabled = true;
 			solveAsyncButton.IsEnabled = true;
 			generateRandomGridButton.IsEnabled = true;
 			clearGridButton.IsEnabled = true;
@@ -160,26 +163,23 @@ namespace GridView
 
 		private void stopSolveAsyncButtony_Click(object sender, RoutedEventArgs e)
 		{
+			UnlockAndChangeColorCells();
 			cts?.Cancel();
 			stopSolveAsyncButtony.IsEnabled = false;
-			solveButton.IsEnabled = true;
 			solveAsyncButton.IsEnabled = true;
 			generateRandomGridButton.IsEnabled = true;
 			clearGridButton.IsEnabled = true;
 		}
 
-		private void SolveButton_Click(object sender, RoutedEventArgs e)
-		{
-			GridModel.Solve();
-		}
-
         private void clearGridButton_Click(object sender, RoutedEventArgs e)
         {
+			UnlockAndChangeColorCells();
 			GridModel.Clear();
         }
 
         private void generateRandomGridButton_Click(object sender, RoutedEventArgs e)
         {
+			UnlockAndChangeColorCells();
 			GridModel.Clear();
 			GridModel.GenerateRandom(Convert.ToInt32(randomNumCountSlider.Value.ToString("#")));
         }
@@ -189,32 +189,78 @@ namespace GridView
 			generateRandomGridButton.Content = "Generate " + randomNumCountSlider.Value.ToString("#") + " random numbers";
         }
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		private void BlockAndChangeColorCells()
+		{
+			UniformGrid? grid = SudokuTable.Child as UniformGrid;
+
+			if (grid is null) return;
+
+			UIElementCollection boxes = grid.Children;
+
+			foreach (UIElement element in boxes)
+			{
+				TextBox? box = (element as Border)?.Child as TextBox;
+
+				if (box is null) continue;
+
+				box.IsReadOnly = true;
+
+				if (string.IsNullOrWhiteSpace(box.Text))
+				{
+					box.Foreground = Brushes.Red;
+				}
+				else
+				{
+					box.Foreground = Brushes.Black;
+				}
+			}
+		}
+
+		private void UnlockAndChangeColorCells()
+		{
+			UniformGrid? grid = SudokuTable.Child as UniformGrid;
+
+			if (grid is null) return;
+
+			UIElementCollection boxes = grid.Children;
+
+			foreach (UIElement element in boxes)
+			{
+				TextBox? box = (element as Border)?.Child as TextBox;
+
+				if (box is null) continue;
+
+				box.IsReadOnly = false;
+				box.Foreground = Brushes.Blue;
+			}
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         PROTECTED METHODS                         *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                          STATIC METHODS                           *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         ABSTRACT METHODS                          *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                              INDEXERS                             *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                         OPERATORS OVERLOAD                        *|
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-    }
+	}
 }

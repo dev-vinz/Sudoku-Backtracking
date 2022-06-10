@@ -15,7 +15,6 @@
         <Border x:Name="SudokuTable" Height="600" Width="600" Margin="0,0,0,0"/>
 
         <Grid x:Name="Control" Grid.Column="2">
-            <Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
             <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,66,154,517">Solve Async</Button>
             <Button x:Name="stopSolveAsyncButtony" Click="stopSolveAsyncButtony_Click" Margin="155,66,52,517" Content="Stop" IsEnabled="false"/>
             <Button x:Name="clearGridButton" Click="clearGridButton_Click" Margin="52,122,52,461">Clear Grid</Button>
@@ -24,6 +23,9 @@
             </Button>
             <Slider x:Name="randomNumCountSlider" TickFrequency="1" ValueChanged="randomNumCountSlider_ValueChanged" HorizontalAlignment="Center" Minimum="1" Value="10" Margin="0,202,0,0" VerticalAlignment="Top" Width="196"/>
             <Label x:Name="elapsedTimeLabel" FontSize="25" Content="{Binding ElapsedTime}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="196"/>
+            <Slider Minimum="0" Maximum="10" x:Name="speedSlider" HorizontalAlignment="Left" Margin="52,39,0,0" VerticalAlignment="Top" Width="150"/>
+            <Label Content="Speed : " HorizontalAlignment="Left" Margin="52,8,0,0" VerticalAlignment="Top"/>
+            <Label Content="{Binding ElementName=speedSlider, Path=Value}" HorizontalAlignment="Left" Margin="218,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.732,0.451"/>
         </Grid>
     </Grid>
 </Window>
