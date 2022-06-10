@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SudokuModel
@@ -104,8 +105,14 @@ namespace SudokuModel
 			}
 		}
 
-		public async Task SolveAsync()
+		public async Task SolveAsync(CancellationTokenSource token)
         {
+			if(token.IsCancellationRequested)
+            {
+				Clear();
+				return;
+            }
+
 			if (!chrono.IsRunning) chrono.Start();
 
 			int row = -1;
@@ -152,7 +159,7 @@ namespace SudokuModel
 
 					await Task.Delay(10); // Input ?
 
-					await SolveAsync();
+					await SolveAsync(token);
 
 					if (solved)
 					{

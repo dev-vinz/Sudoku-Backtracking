@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,8 @@ namespace GridView
 
 		private static readonly int THIN = 1;
 		private static readonly int THICK = 3;
+
+		private CancellationTokenSource cts;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
 		|*                               FIELDS                              *|
@@ -138,7 +141,23 @@ namespace GridView
 
 		private async void SolveAsyncButton_Click(object sender, RoutedEventArgs e)
 		{
-			await GridModel.SolveAsync();
+			cts = new CancellationTokenSource();
+
+			stopSolveAsyncButtony.IsEnabled = true;
+			solveAsyncButton.IsEnabled = false;
+			generateRandomGridButton.IsEnabled = false;
+			clearGridButton.IsEnabled = false;
+
+			await GridModel.SolveAsync(cts);
+		}
+
+		private void stopSolveAsyncButtony_Click(object sender, RoutedEventArgs e)
+		{
+			cts.Cancel();
+			stopSolveAsyncButtony.IsEnabled = false;
+			solveAsyncButton.IsEnabled = true;
+			generateRandomGridButton.IsEnabled = true;
+			clearGridButton.IsEnabled = true;
 		}
 
 		private void SolveButton_Click(object sender, RoutedEventArgs e)

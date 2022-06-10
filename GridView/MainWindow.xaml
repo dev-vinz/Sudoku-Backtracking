@@ -16,7 +16,8 @@
 
         <Grid x:Name="Control" Grid.Column="2">
             <Button x:Name="solveButton" Click="SolveButton_Click" Margin="52,10,52,573">Solve</Button>
-            <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,66,52,517">Solve Async</Button>
+            <Button x:Name="solveAsyncButton" Click="SolveAsyncButton_Click" Margin="52,66,154,517">Solve Async</Button>
+            <Button x:Name="stopSolveAsyncButtony" Click="stopSolveAsyncButtony_Click" Margin="155,66,52,517" Content="Stop" IsEnabled="false"/>
             <Button x:Name="clearGridButton" Click="clearGridButton_Click" Margin="52,122,52,461">Clear Grid</Button>
             <Button x:Name="generateRandomGridButton" Click="generateRandomGridButton_Click" Margin="52,225,52,358">
                 Generate 10 random numbers
