@@ -22,6 +22,7 @@ namespace SudokuModel
 		private bool solved;
 		private Stopwatch chrono;
 		private int sleepMs;
+		private int tryCounter;
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -29,6 +30,7 @@ namespace SudokuModel
 		\* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		public bool IsSolved => solved;
+		public int TryCounter => tryCounter;
 
 		public int SleepMs
         {
@@ -58,6 +60,7 @@ namespace SudokuModel
 			cells = new Cell[NB_CELLS, NB_CELLS];
 			solved = false;
 			chrono = new Stopwatch();
+			tryCounter = 0;
 
 			PopulateGrid();
 		}
@@ -71,6 +74,7 @@ namespace SudokuModel
 		public void Clear()
 		{
 			chrono.Reset();
+			tryCounter = 0;
 			for (int r = 0; r < NB_CELLS; r++)
 			{
 				for (int c = 0; c < NB_CELLS; c++)
@@ -162,10 +166,12 @@ namespace SudokuModel
 				{
 					this[row, col] = num;
 
+					tryCounter++;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TryCounter"));
+
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ElapsedTime"));
 
-					await Task.Delay(SleepMs); // Input ?
-					Console.WriteLine(SleepMs);
+					await Task.Delay(SleepMs);
 
 					await SolveAsync(token);
 

@@ -21,11 +21,14 @@
             <Button x:Name="generateRandomGridButton" Click="generateRandomGridButton_Click" Margin="52,225,52,358">
                 Generate 10 random numbers
             </Button>
+            
             <Slider x:Name="randomNumCountSlider" TickFrequency="1" ValueChanged="randomNumCountSlider_ValueChanged" HorizontalAlignment="Center" Minimum="1" Value="10" Margin="0,202,0,0" VerticalAlignment="Top" Width="196"/>
             <Label x:Name="elapsedTimeLabel" FontSize="25" Content="{Binding ElapsedTime}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="196"/>
-            <Slider Minimum="0" ValueChanged="speedSlider_ValueChanged" Maximum="1000" x:Name="speedSlider" HorizontalAlignment="Left" Margin="52,39,0,0" VerticalAlignment="Top" Width="150"/>
             <Label Content="Pause time [ms] : " HorizontalAlignment="Left" Margin="52,8,0,0" VerticalAlignment="Top"/>
+            <Slider Minimum="0" ValueChanged="speedSlider_ValueChanged" Maximum="1000" x:Name="speedSlider" HorizontalAlignment="Left" Margin="52,39,0,0" VerticalAlignment="Top" Width="150"/>
             <Label Content="{Binding ElementName=speedSlider, Path=Value, StringFormat={}{0:N2}}" HorizontalAlignment="Left" Margin="218,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.732,0.451"/>
+            <Label Content="Try counter : " HorizontalAlignment="Left" Margin="52,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.472,1.722"/>
+            <Label Content="{Binding TryCounter}" HorizontalAlignment="Left" Margin="135,341,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>
