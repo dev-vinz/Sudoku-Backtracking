@@ -1,0 +1,34 @@
+@startuml SudokuSolver
+
+class Cell
+{
+    - <<get, set>> Value : int?
+    - <<get>> IsEmpty : bool
+    + Cell()
+}
+
+interface INotifyPropertyChanged { }
+
+class Grid
+{
+    - <<get, set>> Cells : Cell[,]
+    - <<get>> IsSolved : bool
+    - Chrono : StopWatch
+    - <<get>> SleepMs : int
+    - <<get>> TryCounter : int
+    + event PropertyChanged : PropertyChangedEventHandler?
+    + Grid()
+    + OnPropertyChanged(propertyName : string) : void
+    + Clear() : void
+    + GenerateRandom(maxGeneratedNum = 10 : int) : void
+    + async SolveAsync(token : CancellationTokenSource) : Task
+    + Solve() : void
+    - IsSafe(row : int, col : int, number : int?) : bool
+    - PopulateGrid() : void
+    + this[row : int, col : int] : int?
+}
+
+Grid *-- Cell
+INotifyPropertyChanged <|-- Grid
+
+@enduml
